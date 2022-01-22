@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.m.wikipedia.org%2Fwiki%2FArchivo%3ARick_and_Morty.svg&psig=AOvVaw2XjutRT2rjXx6IY2n_up2p&ust=1642919811125000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLC4rLPfxPUCFQAAAAAdAAAAABAD">
+        </div>
+    </header>
+    <section id="info" class="characteres_container"></section>
+    <script >
+        const fetchData= require('../utils/fetchData');
+        const API = 'https://rickandmortyapi.com/api/character/';
+
+        const info = document.querySelector('#info')
+        const mostrarInfo=(personaje)=>{
+            return(
+                `<div> 
+                    <img src="${personaje.image}">
+                    <p>${personaje.name}</p>
+                    <p>${personaje.origin.name}</p>
+                </div>`
+            )
+        }
+
+        fetchData(API)
+            .then((data)=>{
+                console.log(data);
+                let character_info=data.results.map(mostrarInfo);
+                info.innerHTML=character_info.join('\n');                
+            })            
+            .catch((error)=> console.error(err));
+    </script>
+</body>
+</html>
